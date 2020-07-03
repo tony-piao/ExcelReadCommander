@@ -1,0 +1,23 @@
+{
+  "name": "excelreadcommander",
+  "version": "1.0.0",
+  "description": "Excel Reade Commander",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tony-piao/ExcelReadCommander.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tony-piao/ExcelReadCommander/issues"
+  },
+  "homepage": "https://github.com/tony-piao/ExcelReadCommander#readme",
+  "dependencies": {
+    "inquirer": "^7.3.0",
+    "xlsx": "^0.16.3"
+  }
+}
