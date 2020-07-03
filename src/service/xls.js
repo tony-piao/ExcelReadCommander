@@ -1,6 +1,6 @@
 const XLSX = require('xlsx');
 const fs = require('fs'); //文件模块
-const path = require('path'); //系统路径模块
+const Path = require('path'); //系统路径模块
 
 class XlsClass {
   constructor(path) {
@@ -29,7 +29,7 @@ class XlsClass {
     const worksheet = workbook.Sheets[firstSheetName]
     const results = XLSX.utils.sheet_to_json(worksheet)
 
-    console.log('results===', results)
+    this.generateI18nFiles(results)
   }
 
   generateI18nFiles(results) {
@@ -41,19 +41,18 @@ class XlsClass {
       zhData[element.KEY] = element.ZH;
     });
 
-    this.writeJson('en.js', './en,js', enData)
-    this.writeJson('zh.js', './zh,js', enData)
+    this.writeJson('../../en.js', JSON.stringify(enData))
+    this.writeJson('../../zh.js', JSON.stringify(zhData))
   }
 
-  writeJson(file, path, content) {
-    const file = path.join(__dirname, path);
+  writeJson(path, content) {
+    const targetFile = Path.join(__dirname, path);
 
-    //写入文件
-    fs.writeFile(file, content, function (err) {
+    fs.writeFile(targetFile, content, function (err) {
       if (err) {
         return console.error('error:' + err);
       }
-      console.log('文件创建成功，地址：' + file);
+      console.log('文件创建成功，地址：' + targetFile);
     });
 
   }

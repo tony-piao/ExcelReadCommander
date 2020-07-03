@@ -5,7 +5,7 @@ inquirer.prompt([
   {
     type: 'Input',
     name: 'excelPath',
-    message: '请输入要解析的excel地址'
+    message: '请输入要解析的excel地址[绝对地址]:'
   }
 ]).then((answers) => {
   const xlsService = new Xls(answers.excelPath)
