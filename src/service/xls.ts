@@ -1,15 +1,18 @@
-const XLSX = require('xlsx');
-const fs = require('fs'); //文件模块
-const Path = require('path'); //系统路径模块
+import XLSX, {Sheet} from 'xlsx'
+import fs from 'fs'; //文件模块
+import Path from 'path'; //系统路径模块
+import {I18n} from '../types/i18n'
 
-class XlsClass {
-  constructor(path) {
+export class XlsClass {
+  private xlsPath:string;
+
+  constructor(path: string) {
     this.xlsPath = path;
   }
 
-  getHeaderRow(sheet) {
+  getHeaderRow(sheet: Sheet) {
     const headers = []
-    const range = XLSX.utils.decode_range(sheet['!ref'])
+    const range = XLSX.utils.decode_range(sheet['!ref'] as string)
     let C
     const R = range.s.r
     /* start in the first row */
@@ -28,13 +31,12 @@ class XlsClass {
     const firstSheetName = workbook.SheetNames[0]
     const worksheet = workbook.Sheets[firstSheetName]
     const results = XLSX.utils.sheet_to_json(worksheet)
-    console.log('result', results)
     this.generateI18nFiles(results)
   }
 
-  generateI18nFiles(results) {
-    const enData  = {};
-    const zhData = {};
+  generateI18nFiles(results: any[]): void {
+    const enData: I18n  = {};
+    const zhData: I18n = {};
 
     results.forEach(element => {
       enData[element.KEY]= element.EN;
@@ -45,17 +47,17 @@ class XlsClass {
     this.writeJson('../../zh.js', JSON.stringify(zhData))
   }
 
-  writeJson(path, content) {
+  writeJson(path: string, content:string) {
     const targetFile = Path.join(__dirname, path);
 
     fs.writeFile(targetFile, content, function (err) {
       if (err) {
+        //eslint-disable-next-line
         return console.error('error:' + err);
       }
+        //eslint-disable-next-line
       console.log('文件创建成功，地址：' + targetFile);
     });
 
   }
 }
-
-module.exports = XlsClass
