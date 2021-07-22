@@ -18,6 +18,6 @@
   "homepage": "https://github.com/tony-piao/ExcelReadCommander#readme",
   "dependencies": {
     "inquirer": "^7.3.0",
-    "xlsx": "^0.16.3"
+    "xlsx": "^0.17.0"
   }
 }
